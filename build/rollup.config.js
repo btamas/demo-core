@@ -3,8 +3,8 @@ const glob = require('glob');
 const alias = require('rollup-plugin-alias');
 
 const inputs = glob.sync(path.join(__dirname, '..', 'src', '**', '*.js'));
-const localExternals = inputs.map(input => `ui/${input.replace(/^.*?src\//, '').replace(/\.js/, '')}`);
-console.log(localExternals);
+const localExternals = inputs.map(input => `core/${input.replace(/^.*?src\//, '').replace(/\.js/, '')}`);
+
 
 module.exports = inputs.map(input => {
     const name = path.parse(input).name.replace(/\.js/, '');
