@@ -266,6 +266,7 @@ import Promise from 'core/promise';
                 });
             } catch(e) {
                 return new Promise(function(resolve, reject) {
+
                     require([moduleName], resolve, reject);
                 });
             }

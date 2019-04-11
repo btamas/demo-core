@@ -1,57 +1,12 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash'), require('lib/polyfill/es6-promise')) :
-    typeof define === 'function' && define.amd ? define(['lodash', 'lib/polyfill/es6-promise'], factory) :
-    (global = global || self, global.api = factory(global._, global.es6Promise));
-}(this, function (_, es6Promise) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash'), require('core/format'), require('core/promise')) :
+    typeof define === 'function' && define.amd ? define(['lodash', 'core/format', 'core/promise'], factory) :
+    (global = global || self, global.api = factory(global._, global.format, global.Promise));
+}(this, function (_, format, Promise) { 'use strict';
 
     _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
-    es6Promise = es6Promise && es6Promise.hasOwnProperty('default') ? es6Promise['default'] : es6Promise;
-
-    /**
-     * @author Bertrand Chevrier <bertrand@taotesting.com>
-     */
-
-        var pattern = /(%[sdj])/g;
-
-        /**
-         * Enables you to format strings/message, using the pattern:
-         *  - %s : string
-         *  - %d : number
-         *  - %j : json
-         *
-         * @example format('Resize %s to %d%', 'width', 100); //returns Resize width to 100%
-         * @exports core/format
-         * @param {String} message - the message to format
-         * @param {...String|Number|Object} [replacements] -  the replacements arguments in the order defined in the message
-         * @returns {String} the formatted message
-         */
-        function format(message){
-            var replacements = Array.prototype.slice.call(arguments, 1);
-            return _.reduce(
-                message.match(pattern),
-                function(acc, match, index){
-                    var replacement = '';
-                    if(undefined !== replacements[index]){
-                         switch(match){
-                            case '%d': replacement = Number(replacements[index]); break;
-                            case '%j': try{
-                                    replacement = JSON.stringify(replacements[index]).replace(/"/g, '');
-                                } catch(e){}
-                                break;
-                            default : replacement = replacements[index]; break;
-                         }
-                         message = message.replace(match, replacement);
-                    }
-                    return message;
-                },
-                message
-            );
-        }
-
-    /**
-         * @exports core/promise
-         */
-        var Promise = window.Promise || es6Promise.Promise;
+    format = format && format.hasOwnProperty('default') ? format['default'] : format;
+    Promise = Promise && Promise.hasOwnProperty('default') ? Promise['default'] : Promise;
 
     /*
      * This program is free software; you can redistribute it and/or
@@ -297,6 +252,7 @@
                     });
                 } catch(e) {
                     return new Promise(function(resolve, reject) {
+
                         require([moduleName], resolve, reject);
                     });
                 }
