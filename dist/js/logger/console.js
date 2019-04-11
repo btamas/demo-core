@@ -4,8 +4,6 @@
     (global = global || self, global.console = factory(global._));
 }(this, function (_) { 'use strict';
 
-    _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
-
     /*
      * This program is free software; you can redistribute it and/or
      * modify it under the terms of the GNU General Public License

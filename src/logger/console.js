@@ -22,7 +22,7 @@
  *
  * @author Bertrand Chevrier <bertrand@taotesting.com>
  */
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 
     'use strict';
