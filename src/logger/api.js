@@ -259,32 +259,50 @@ import Promise from 'core/promise';
         var modules = [];
         this.providers = [];
 
-        return new Promise( function(resolve, reject) {
-            //we can load the loggers dynamically
-            _.forEach(providerConfigs, function (providerConfig, providerName) {
-                modules.push(providerName);
-            });
-            console.log('api load', modules);
-            var z = 'require';
-            var x = global[z];
-            x(modules, function(){
-                var loadedProviders = [].slice.call(arguments);
-                _.forEach(loadedProviders, function (provider, moduleKey){
-                    try {
-                        self.register(provider, providerConfigs[modules[moduleKey]]);
-                    } catch(err){
-                        reject(err);
-                    }
+        var asyncModuleLoad = function(moduleName) {
+            try {
+                return System.import(moduleName).then(function(loadedModule) {
+                    return loadedModule.default || loadedModule;
                 });
+            } catch(e) {
+                return new Promise(function(resolve, reject) {
+                    require([moduleName], resolve, reject);
+                });
+            }
+        };
 
-                //flush messages that arrived before the providers are there
-                self.flush();
+        return Promise.all(
+            Object.keys(providerConfigs).map(function(providerName) {
+                return asyncModuleLoad(providerName).then(function(loadedModule) {
+                    self.register(loadedModule, providerConfigs[providerName]);
+                    self.flush();
+                });
+            })
+        );
 
-                resolve();
+        // return new Promise( function(resolve, reject) {
+        //     //we can load the loggers dynamically
+        //     _.forEach(providerConfigs, function (providerConfig, providerName) {
+        //         modules.push(providerName);
+        //     });
+        //     require(modules, function(){
+        //         var loadedProviders = [].slice.call(arguments);
+        //         _.forEach(loadedProviders, function (provider, moduleKey){
+        //             try {
+        //                 self.register(provider, providerConfigs[modules[moduleKey]]);
+        //             } catch(err){
+        //                 reject(err);
+        //             }
+        //         });
 
-            }, reject);
-            resolve();
-        });
+        //         //flush messages that arrived before the providers are there
+        //         self.flush();
+
+        //         resolve();
+
+        //     }, reject);
+        //     resolve();
+        // });
     };
 
     /**
