@@ -1,237 +1,454 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("core/logger/api"), require("lodash"), require("module"));
-	else if(typeof define === 'function' && define.amd)
-		define(["core/logger/api", "lodash", "module"], factory);
-	else if(typeof exports === 'object')
-		exports["logger"] = factory(require("core/logger/api"), require("lodash"), require("module"));
-	else
-		root["logger"] = factory(root["core/logger/api"], root["lodash"], root["module"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_core_logger_api__, __WEBPACK_EXTERNAL_MODULE_lodash__, __WEBPACK_EXTERNAL_MODULE_module__) {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/logger.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash'), require('module'), require('lib/polyfill/es6-promise')) :
+    typeof define === 'function' && define.amd ? define(['lodash', 'module', 'lib/polyfill/es6-promise'], factory) :
+    (global = global || self, global.logger = factory(global._, global.module, global.es6Promise));
+}(this, function (_, module, es6Promise) { 'use strict';
 
-/***/ "./src/logger.js":
-/*!***********************!*\
-  !*** ./src/logger.js ***!
-  \***********************/
-/*! exports provided: default */
-/*! ModuleConcatenation bailout: Module is an entry point */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! module */ "module");
-/* harmony import */ var module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_logger_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core/logger/api */ "core/logger/api");
-/* harmony import */ var core_logger_api__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_logger_api__WEBPACK_IMPORTED_MODULE_2__);
-/*
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; under version 2
- * of the License (non-upgradable).
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * Copyright (c) 2017 (original work) Open Assessment Technologies SA;
- *
- */
-
-/**
- *
- * Logger facade
- *
- * Load the logger providers based on the module configuration
- * and exposes the logger api
- *
- * @author Bertrand Chevrier <bertrand@taotesting.com>
- */
-
-
-
-
-
-    'use strict';
+    _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
+    module = module && module.hasOwnProperty('default') ? module['default'] : module;
+    es6Promise = es6Promise && es6Promise.hasOwnProperty('default') ? es6Promise['default'] : es6Promise;
 
     /**
-     * The default configuration if nothing
-     * is found on the module config
+     * @author Bertrand Chevrier <bertrand@taotesting.com>
      */
-    var defaultConfig = {
-        level : core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a.levels.warn,
-        loggers : {
-            'core/logger/console' : {
-                'level' : 'warn'
-            }
+
+        var pattern = /(%[sdj])/g;
+
+        /**
+         * Enables you to format strings/message, using the pattern:
+         *  - %s : string
+         *  - %d : number
+         *  - %j : json
+         *
+         * @example format('Resize %s to %d%', 'width', 100); //returns Resize width to 100%
+         * @exports core/format
+         * @param {String} message - the message to format
+         * @param {...String|Number|Object} [replacements] -  the replacements arguments in the order defined in the message
+         * @returns {String} the formatted message
+         */
+        function format(message){
+            var replacements = Array.prototype.slice.call(arguments, 1);
+            return _.reduce(
+                message.match(pattern),
+                function(acc, match, index){
+                    var replacement = '';
+                    if(undefined !== replacements[index]){
+                         switch(match){
+                            case '%d': replacement = Number(replacements[index]); break;
+                            case '%j': try{
+                                    replacement = JSON.stringify(replacements[index]).replace(/"/g, '');
+                                } catch(e){}
+                                break;
+                            default : replacement = replacements[index]; break;
+                         }
+                         message = message.replace(match, replacement);
+                    }
+                    return message;
+                },
+                message
+            );
         }
-    };
-
-    //the logger providers are configured through the AMD module config
-    var config = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.defaults(module__WEBPACK_IMPORTED_MODULE_1___default.a.config() || {}, defaultConfig);
-    var logger = core_logger_api__WEBPACK_IMPORTED_MODULE_2___default()('core/logger');
-
-    core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a.setDefaultLevel(config.level);
-    core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a.load(config.loggers);
 
     /**
-      * Catch uncaught errors
-      * @param msg - error message
-      * @param url - current url
-      * @param line - line number
-      * @param col - column number
-      * @param error - error object (not all browsers support).
-      * @return {boolean}
-      */
-    window.onerror = function (msg, url, line, col, error) {
-        logger.error("Caught[via window.onerror]: '" + msg + "' from " + url + ":" + line + ":" + col);
-    };
+         * @exports core/promise
+         */
+        var Promise = window.Promise || es6Promise.Promise;
 
-    /**
-     * Expose explicitely an direct way to activate log levels
-     * @param {String|Number} level - the new log level
-     * @returns {String} the defined level
+    /*
+     * This program is free software; you can redistribute it and/or
+     * modify it under the terms of the GNU General Public License
+     * as published by the Free Software Foundation; under version 2
+     * of the License (non-upgradable).
+     *
+     * This program is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     * GNU General Public License for more details.
+     *
+     * You should have received a copy of the GNU General Public License
+     * along with this program; if not, write to the Free Software
+     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+     *
+     * Copyright (c) 2017 (original work) Open Assessment Technologies SA;
+     *
      */
-    window.setTaoLogLevel = function setTaoLogLevel(level){
-        return core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a.setDefaultLevel(level);
-    };
 
-    //exposes the API
-    window.loggerFactory = core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a;
-    
-    /* harmony default export */ __webpack_exports__["default"] = (core_logger_api__WEBPACK_IMPORTED_MODULE_2___default.a);
+        /**
+         * The default level
+         */
+        var defaultLevel = 'info';
+
+        var levels = {
+            fatal : 60, // The service/app is going to stop or become unusable now. An operator should definitely look into this soon.
+            error : 50, // Fatal for a particular request, but the service/app continues servicing other requests. An operator should look at this soon(ish).
+            warn  : 40, // A note on something that should probably be looked at by an operator eventually.
+            info  : 30, // Detail on regular operation.
+            debug : 20, // Anything else, i.e. too verbose to be included in "info" level.
+            trace : 10  // Logging from external libraries used by your app or very detailed application logging.
+        };
+
+        /**
+         * Major version of the node-bunyan package (for compat)
+         */
+        var bunyanVersion = 0;
+
+        /**
+         * Where messages dwells
+         */
+        var logQueue = [];
+
+        /**
+         * Get the actual level as a string,
+         * fallback to the default level.
+         * @param {String|Number} [level] - the level
+         * @returns {String} the level
+         */
+        var getLevel = function getLevel(level){
+            if(typeof level === 'undefined' || (_.isString(level) && !_.has(levels, level)) ){
+                return defaultLevel;
+            }
+            if(_.isNumber(level)){
+                return _.findKey(levels, function(l){
+                    return l === level;
+                }) || defaultLevel;
+            }
+            return level;
+        };
+
+        /**
+         * Get the actual level as a number,
+         * fallback to the default level.
+         * @param {String|Number} [level] - the level
+         * @returns {Number} the level
+         */
+        var getLevelNum = function getLevelNum(level){
+            if(_.isString(level) && _.has(levels, level)){
+                return levels[level];
+            }
+            if(_.isNumber(level) && _.contains(levels, level)){
+                return level;
+            }
+            return levels[defaultLevel];
+        };
+
+        /**
+         * Check whether the given level is above the minimum level threshold
+         * @param {String|Number} minlevel- the minimum level
+         * @param {String|Number} [level] - the level to check
+         * @returns {Boolean}
+         */
+        var checkMinLevel = function checkMinLevel(minLevel, level) {
+            return getLevelNum(level) >= getLevelNum(minLevel);
+        };
+
+        /**
+         * Creates a logger instance
+         *
+         * @param {String} name - each logger instance MUST have a name
+         * @param {String|Number} [minLevel] - the minimum logging level
+         * @param {Object} [fields] - fields to add to all records
+         *
+         * @returns {logger} a new logger instance
+         */
+        var loggerFactory = function loggerFactory(name, minLevel, fields){
+
+            var baseRecord;
+            var logger;
+
+            if(!_.isString(name) || _.isEmpty(name)){
+                throw new TypeError('A logger needs a name');
+            }
+
+            if(_.isPlainObject(minLevel) && typeof field === 'undefined'){
+                fields = minLevel;
+                minLevel = defaultLevel;
+            }
+
+            baseRecord = _.defaults(fields || {}, {
+                name     : name,
+                pid      : 1,    // only for compat
+                hostname : navigator.userAgent
+            });
+
+            /**
+             * Exposes a log method and one by log level, like logger.trace()
+             *
+             * @typedef logger
+             */
+            logger = {
 
 
-/***/ }),
+                /**
+                 * Log messages by delegating to the provider
+                 *
+                 * @param {String|Number} level - the log level
+                 * @param {Object} [recordFields] - fields to add to the log record
+                 * @param {String|Error} message - the message to log
+                 * @param {...String} [rest] - rest parameters if the message is formatted
+                 * @returns {logger} chains
+                 */
+                log : function log(level, recordFields, message){
 
-/***/ "core/logger/api":
-/*!**********************************!*\
-  !*** external "core/logger/api" ***!
-  \**********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+                    var record;
+                    var err;
+                    var rest = [];
+                    var time = new Date().toISOString();
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_core_logger_api__;
+                    //without providers or not the level, we don't log.
+                    if(loggerFactory.providers === false || !checkMinLevel(minLevel || defaultLevel, level)){
+                        return;
+                    }
 
-/***/ }),
+                    if(_.isString(recordFields) || recordFields instanceof Error){
+                        message = recordFields;
+                        recordFields = {};
+                        rest = [].slice.call(arguments, 2);
+                    } else {
+                        rest = [].slice.call(arguments, 3);
+                    }
 
-/***/ "lodash":
-/*!*************************!*\
-  !*** external "lodash" ***!
-  \*************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+                    record = {
+                        level : getLevel(level),
+                        v     : bunyanVersion,
+                        time  : time
+                    };
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_lodash__;
+                    if(checkMinLevel(levels.error, level) || message instanceof Error){
+                        if (message instanceof Error) {
+                            err = message;
+                        } else {
+                            message = _.isObject(message) ? JSON.stringify(message) : message;
+                            err = new Error(message);
+                        }
 
-/***/ }),
+                        record.msg = err.message;
+                        record.err = err;
 
-/***/ "module":
-/*!*************************!*\
-  !*** external "module" ***!
-  \*************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+                    } else {
+                        record.msg = format.apply(null, [message].concat(rest));
+                    }
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_module__;
+                    _.merge(record, baseRecord, recordFields);
 
-/***/ })
+                    logQueue.push(record);
 
-/******/ })["default"];
-});
+                    loggerFactory.flush();
+
+                    return this;
+                },
+
+                /**
+                 * Get/set the default level of the logger
+                 * @param {String|Number} [level] - set the default level
+                 * @returns {String|logger} the default level as a getter or chains as a setter
+                 */
+                level : function(value){
+                    if(typeof value !== 'undefined'){
+                        //update the partial function
+                        minLevel = getLevelNum(value);
+                        return this;
+                    }
+                    return getLevel(minLevel);
+                },
+
+                /**
+                 * Fork the current logger to create a child logger :
+                 * same config + child fields
+                 *
+                 * @param {Object} [childFields] - specialized child fields
+                 * @return {logger} the child logger
+                 */
+                child : function child(childFields){
+                    return loggerFactory(name, minLevel, _.defaults(childFields, baseRecord));
+                }
+            };
+
+            //augment the logger by each level
+            return _.reduce(levels, function reduceLogLevel(target, level, levelName){
+                target[levelName] = _.partial(logger.log, level);
+                return target;
+            }, logger);
+        };
+
+        /**
+         * Exposes the levels
+         * @type {Object}
+         */
+        loggerFactory.levels = levels;
+
+        /**
+         * The list of providers bound to the logger.
+         * @type {Boolean|Array} false means we don't log, array even empty we keep the logs
+         */
+        loggerFactory.providers = false;
+
+        /**
+         * Load providers from AMD modules
+         * @param {Object} providerConfigs - provider's modules to load and register
+         * @returns {Promise} resolves once modules are registered
+         */
+        loggerFactory.load = function load(providerConfigs){
+            var self = this;
+            this.providers = [];
+
+            var asyncModuleLoad = function(moduleName) {
+                try {
+                    return System.import(moduleName).then(function(loadedModule) {
+                        return loadedModule.default || loadedModule;
+                    });
+                } catch(e) {
+                    return new Promise(function(resolve, reject) {
+                        require([moduleName], resolve, reject);
+                    });
+                }
+            };
+
+            return Promise.all(
+                Object.keys(providerConfigs).map(function(providerName) {
+                    return asyncModuleLoad(providerName).then(function(loadedModule) {
+                        self.register(loadedModule, providerConfigs[providerName]);
+                        self.flush();
+                    });
+                })
+            );
+
+            // return new Promise( function(resolve, reject) {
+            //     //we can load the loggers dynamically
+            //     _.forEach(providerConfigs, function (providerConfig, providerName) {
+            //         modules.push(providerName);
+            //     });
+            //     require(modules, function(){
+            //         var loadedProviders = [].slice.call(arguments);
+            //         _.forEach(loadedProviders, function (provider, moduleKey){
+            //             try {
+            //                 self.register(provider, providerConfigs[modules[moduleKey]]);
+            //             } catch(err){
+            //                 reject(err);
+            //             }
+            //         });
+
+            //         //flush messages that arrived before the providers are there
+            //         self.flush();
+
+            //         resolve();
+
+            //     }, reject);
+            //     resolve();
+            // });
+        };
+
+        /**
+         * A logger provider provides with a way to log
+         * @typedef {Object} loggerProvider
+         * @property {Function} log - called with the message in parameter
+         * @param {Object} providerConfig - provider's config
+         * @throws TypeError
+         */
+        loggerFactory.register = function register(provider, providerConfig){
+
+            if(!_.isPlainObject(provider) || !_.isFunction(provider.log)){
+                throw new TypeError('A log provider is an object with a log method');
+            }
+            //propogate checkMinLevel function
+            provider.checkMinLevel = checkMinLevel;
+            if (_.isFunction(provider.setConfig)) {
+                provider.setConfig(providerConfig);
+            }
+            this.providers = this.providers || [];
+            this.providers.push(provider);
+        };
+
+
+        /**
+         * Flush the messages queue into the providers
+         */
+        loggerFactory.flush = function flush(){
+            if(_.isArray(this.providers) && this.providers.length > 0){
+                _.forEach(logQueue, function(message){
+                    //forward to the providers
+                    _.forEach(loggerFactory.providers, function(provider){
+                        provider.log.call(provider, message);
+                    });
+                });
+                //clear the queue
+                logQueue = [];
+            }
+        };
+
+        /**
+         * Change the default level for all loggers
+         * @param {String|Number} [level] - set the default level
+         * @returns {String} the defined level
+         */
+        loggerFactory.setDefaultLevel = function setDefaultLevel(level){
+            defaultLevel = getLevel(level);
+            return defaultLevel;
+        };
+
+    /*
+     * This program is free software; you can redistribute it and/or
+     * modify it under the terms of the GNU General Public License
+     * as published by the Free Software Foundation; under version 2
+     * of the License (non-upgradable).
+     *
+     * This program is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     * GNU General Public License for more details.
+     *
+     * You should have received a copy of the GNU General Public License
+     * along with this program; if not, write to the Free Software
+     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+     *
+     * Copyright (c) 2017 (original work) Open Assessment Technologies SA;
+     *
+     */
+
+        /**
+         * The default configuration if nothing
+         * is found on the module config
+         */
+        var defaultConfig = {
+            level : loggerFactory.levels.warn,
+            loggers : {
+                'core/logger/console' : {
+                    'level' : 'warn'
+                }
+            }
+        };
+
+        //the logger providers are configured through the AMD module config
+        var config = _.defaults(module.config() || {}, defaultConfig);
+        var logger = loggerFactory('core/logger');
+
+        loggerFactory.setDefaultLevel(config.level);
+        loggerFactory.load(config.loggers);
+
+        /**
+          * Catch uncaught errors
+          * @param msg - error message
+          * @param url - current url
+          * @param line - line number
+          * @param col - column number
+          * @param error - error object (not all browsers support).
+          * @return {boolean}
+          */
+        window.onerror = function (msg, url, line, col, error) {
+            logger.error("Caught[via window.onerror]: '" + msg + "' from " + url + ":" + line + ":" + col);
+        };
+
+        /**
+         * Expose explicitely an direct way to activate log levels
+         * @param {String|Number} level - the new log level
+         * @returns {String} the defined level
+         */
+        window.setTaoLogLevel = function setTaoLogLevel(level){
+            return loggerFactory.setDefaultLevel(level);
+        };
+
+        //exposes the API
+        window.loggerFactory = loggerFactory;
+
+    return loggerFactory;
+
+}));
